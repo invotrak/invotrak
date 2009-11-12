@@ -79,3 +79,26 @@ FakeWeb.register_uri :any, /invotrak.com\/api\/2.0.0\/projects\/list/, :body => 
   </project>
 </projects>
 EOF
+
+# -------------------
+# invoices
+# -------------------
+FakeWeb.register_uri :any, /invotrak.com\/api\/2.0.0\/invoices\/(outstanding|paid)\/2009-09-01\/2009-11-01/, :body => <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<invoices type="array">
+  <invoice>
+    <amount type="decimal">100.0</amount>
+    <client-id type="integer">1</client-id>
+    <comments></comments>
+    <company-id type="integer">1</company-id>
+    <created-at type="datetime">2009-09-23T14:14:42-04:00</created-at>
+    <id type="integer">1</id>
+    <invoice-id>001-A</invoice-id>
+    <issued type="date">2009-10-31</issued>
+    <payment-received type="date" nil="true"></payment-received>
+    <payment-total type="decimal">0.0</payment-total>
+    <term type="integer">30</term>
+    <updated-at type="datetime">2009-11-04T10:33:17-05:00</updated-at>
+  </invoice>
+</invoices>
+EOF

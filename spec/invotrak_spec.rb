@@ -50,4 +50,26 @@ describe Invotrak do
       project.name.should == "Test Project"
     end
   end
+  
+  describe "invoices" do
+    it "should list outstanding" do
+      invoices = @invotrak.outstanding_invoices("2009-09-01", "2009-11-01")
+      invoices.class.should == Array
+      
+      invoice = invoices.first
+      invoice.class.should == Invotrak::Record
+      invoice.id.should == 1
+      invoice.invoice_id.should == "001-A"
+    end
+    
+    it "should list paid" do
+      invoices = @invotrak.paid_invoices("2009-09-01", "2009-11-01")
+      invoices.class.should == Array
+      
+      invoice = invoices.first
+      invoice.class.should == Invotrak::Record
+      invoice.id.should == 1
+      invoice.invoice_id.should == "001-A"
+    end
+  end
 end
