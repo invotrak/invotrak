@@ -22,6 +22,24 @@ Before you can make any calls to the API, you need to establish a connection.  T
 
 The username and password will be the same used when logging into your Invotrak account via the web interface.  The API also allows any kind of user to login: admin, employee, and client accounts.  Each has its own set of restrictions though (clients, for instance, can't actually create anything, but can still list some things, like invoices).
 
+Using the API
+-------------
+Using the library is fairly straightforward.  Take a look at the examples.rb script to see how much of the it works.  There is also a suite of tests using rspec and fakeweb that give you a more in-depth look at what is going on.  You can also modify spec_helper to turn off fakeweb to test the API for real (just be sure you setup an actual account and either your API key or your login/password).
+
+In general though, objects are retrieved either as lists or individually:
+
+    invotrak.clients
+    => returns an array of Invotrak::Record objects
+    
+    invotrak.client('Test')
+    => returns a single Invotrak::Record object for Test Client
+
+Creating objects is similarly simple:
+
+    invotrak.create_timesheet(1, "test entry", 15, "2009-11-11")
+
+In that example, a new timesheet entry for 15 minutes will be recorded for November 11th, attached to client ID 1.  In order for create_timesheet to work, you need to know the client's ID you want to associate the timesheet record with.
+
 More Info
 ---------
 This library is currently under heavy development, and doesn't support a whole lot.  This document will be updated as functionality is added.
