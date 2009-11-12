@@ -1,7 +1,8 @@
 require 'invotrak'
 
 invotrak = Invotrak.new
-invotrak.establish_connection!('my_secret_key')
+invotrak.establish_connection!('445f1f5b3dea21c78fede6ab66b5603c1faa90ff')
+
 
 puts invotrak.clients.inspect
 # puts invotrak.projects.inspect
