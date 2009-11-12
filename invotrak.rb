@@ -23,10 +23,10 @@ class Invotrak
   class Connection #:nodoc:
     def initialize(master)
       @master = master
-      # @connection = Net::HTTP.new("invotrak.com/api", 443)
-      @connection = Net::HTTP.new("localhost", 3000)
-      @connection.use_ssl = false
-      # @connection.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      @connection = Net::HTTP.new("invotrak.com", 443)
+      # @connection = Net::HTTP.new("localhost", 3000)
+      # @connection.use_ssl = false
+      @connection.verify_mode = OpenSSL::SSL::VERIFY_NONE
     end
 
     def post(path, body, headers = {})

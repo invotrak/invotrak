@@ -1,3 +1,6 @@
+Invotrak API
+============
+
 This is the API library in Ruby for the invotrak.com web service.  Invotrak is an online invoice and timesheet tracking site, and the API allows developers to access most of its features.  This Ruby API is evolving, but will eventually allow users to take advantage of everything Invotrak makes available.
 
 Getting Started
