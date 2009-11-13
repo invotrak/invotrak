@@ -24,9 +24,6 @@ class Invotrak
     def initialize(master)
       @master = master
       @connection = Net::HTTP.new("invotrak.com", 80)
-      # @connection = Net::HTTP.new("localhost", 3000)
-      # @connection.use_ssl = false
-      @connection.verify_mode = OpenSSL::SSL::VERIFY_NONE
     end
 
     def post(path, body, headers = {})
@@ -78,6 +75,18 @@ class Invotrak
                                 :entry => entry,
                                 :period => time_in_minutes,
                                 :entry_for => entry_for
+  end
+  
+  def create_client(name, enabled=true, company_name=nil, address=nil, contact_name=nil, contact_phone=nil, contact_email=nil, comments=nil, default_rate=nil)
+    record "/create/client", :name => name,
+                             :address => address || "",
+                             :contact_name => contact_name || "",
+                             :contact_phone => contact_phone || "",
+                             :contact_email => contact_email || "",
+                             :comments => comments || "",
+                             :company_name => company_name || "",
+                             :default_rate => default_rate || "",
+                             :display_status => enabled
   end
   
   private
@@ -146,7 +155,9 @@ class Invotrak
 
     if response.code.to_i / 100 == 2
       result = XmlSimple.xml_in(response.body, 'keeproot' => true, 'contentkey' => '__content__', 'forcecontent' => true)
-      typecast_value(result)
+      if (result && result.class == Hash)
+        return !result.has_key?("return") ? typecast_value(result) : result
+      end
     else
       raise "#{response.message} (#{response.code})"
     end
