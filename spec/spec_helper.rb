@@ -62,6 +62,11 @@ Woburn, MA 01801</address>
 </client>
 EOF
 
+FakeWeb.register_uri :any, /invotrak.com\/api\/2.0.0\/create\/client/, :body => <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<return message="Client succesfully created." result="success"/>
+EOF
+
 # -------------------
 # projects
 # -------------------

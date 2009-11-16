@@ -3,7 +3,6 @@ require 'invotrak'
 invotrak = Invotrak.new
 invotrak.establish_connection!('my_api_key')
 
-
 # Get a list of clients
 puts invotrak.clients.inspect
 

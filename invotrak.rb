@@ -78,15 +78,15 @@ class Invotrak
   end
   
   def create_client(name, enabled=true, company_name=nil, address=nil, contact_name=nil, contact_phone=nil, contact_email=nil, comments=nil, default_rate=nil)
-    record "/create/client", :name => name,
-                             :address => address || "",
-                             :contact_name => contact_name || "",
-                             :contact_phone => contact_phone || "",
-                             :contact_email => contact_email || "",
-                             :comments => comments || "",
-                             :company_name => company_name || "",
-                             :default_rate => default_rate || "",
-                             :display_status => enabled
+    create_record "/create/client", :name => name,
+                                    :address => address || "",
+                                    :contact_name => contact_name || "",
+                                    :contact_phone => contact_phone || "",
+                                    :contact_email => contact_email || "",
+                                    :comments => comments || "",
+                                    :company_name => company_name || "",
+                                    :default_rate => default_rate || "",
+                                    :display_status => enabled
   end
   
   private
@@ -118,6 +118,8 @@ class Invotrak
     end
 
     def attributes
+      puts @hash.inspect
+      
       @hash.keys
     end
 
@@ -156,7 +158,7 @@ class Invotrak
     if response.code.to_i / 100 == 2
       result = XmlSimple.xml_in(response.body, 'keeproot' => true, 'contentkey' => '__content__', 'forcecontent' => true)
       if (result && result.class == Hash)
-        return !result.has_key?("return") ? typecast_value(result) : result
+        return !result.has_key?("return") ? typecast_value(result) : result.first
       end
     else
       raise "#{response.message} (#{response.code})"
@@ -217,6 +219,11 @@ class Invotrak
   def record(path, parameters={})
     result = request(path, parameters)
     (result && !result.empty?) ? Record.new(result.keys.first, result.values.first) : nil
+  end
+  
+  def create_record(path, parameters={})
+    result = request(path, parameters)
+    (result && !result.empty?) ? Record.new(result.first, result[1].first) : nil
   end
   
   def records(node, path, parameters={})

@@ -37,6 +37,12 @@ describe Invotrak do
       client.id.should == 1
       client.name.should == "Test Client"
     end
+    
+    it "should create a new client" do
+      r = @invotrak.create_client("Test Client")
+      r.class.should == Invotrak::Record
+      r.result.should == "success"
+    end
   end
   
   describe "projects" do
