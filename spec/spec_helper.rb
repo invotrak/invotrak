@@ -107,3 +107,8 @@ FakeWeb.register_uri :any, /invotrak.com\/api\/2.0.0\/invoices\/(outstanding|pai
   </invoice>
 </invoices>
 EOF
+
+FakeWeb.register_uri :any, /invotrak.com\/api\/2.0.0\/create\/invoice/, :body => <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<return message="Invoice succesfully created." result="success"/>
+EOF

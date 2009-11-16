@@ -89,6 +89,17 @@ class Invotrak
                                     :display_status => enabled
   end
   
+  # creates a new invoice
+  #  invoice_id is a user-readable string, like 123-ABC to identify this invoice
+  def create_invoice(client_id, issued, amount, invoice_id, term, comments="")
+    create_record "/create/invoice", :client_id => client_id,
+                                     :issued => issued,
+                                     :amount => amount,
+                                     :invoice_id => invoice_id,
+                                     :term => term,
+                                     :comments => comments
+  end
+
   private
   
   class Record #:nodoc:

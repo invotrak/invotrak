@@ -34,3 +34,9 @@ invotrak.create_timesheet(1, "test entry", 15, "2009-11-11")
 #     contact_name, contact_phone, contact_email
 #     default_rate: string in the form of "12.75"
 invotrak.create_client("Test Client 123")
+
+
+# Create a new invoice.  All fields are required.  You need to know the client 
+# ID beforehand.  The term is a number of days until the invoice is due from 
+# the date of issue (i.e. Date.today + 30 days is the due date).
+invotrak.create_invoice("1", Date.today, "100.00", "123-ABC", "30", "Test")

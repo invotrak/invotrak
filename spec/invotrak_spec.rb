@@ -77,5 +77,11 @@ describe Invotrak do
       invoice.id.should == 1
       invoice.invoice_id.should == "001-A"
     end
+    
+    it "should create a new invoice" do
+      r = @invotrak.create_invoice(1, Date.today, "100.00", "123-ABC", "30", "Test")
+      r.class.should == Invotrak::Record
+      r.result.should == "success"
+    end
   end
 end
